@@ -1,0 +1,15 @@
+13. Project Setup
+md blog
+cd blog
+npx create-react-app client
+
+md backends
+cd backends
+
+call setup posts
+call setup comments
+
+// To be continuous ...
+md event-bus
+md moderation
+md query
