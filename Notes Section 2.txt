@@ -17,3 +17,8 @@ md query
 02-14. Posts Service Creation
 npm start
 // nodemon index.js
+// localhost:4000
+
+02-16. Implementing a Comments Service
+npm start 
+// localhost:4001
