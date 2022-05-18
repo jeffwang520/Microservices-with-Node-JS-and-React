@@ -13,3 +13,7 @@ call setup comments
 md event-bus
 md moderation
 md query
+
+02-14. Posts Service Creation
+npm start
+// nodemon index.js
