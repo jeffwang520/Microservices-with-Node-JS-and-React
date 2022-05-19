@@ -27,3 +27,11 @@ npm start
     '2a6659a8': [ { id: 'c6498e37', content: 'Comment #a/2a6659a8/Title #1' } ],
     '6572a599': [ { id: '64e656a7', content: 'Comment #a/6572a599/Title #2' } ]
   }
+
+02-20. React Project Setup
+cd blog\client
+npm i axios
+// Go to C:\Users\{YourUsername}\AppData\Local folder and delete npm and npm-cache folders
+
+npm start
+http://localhost:3000/
