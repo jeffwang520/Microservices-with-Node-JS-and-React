@@ -63,3 +63,15 @@ root.render(
   );
 
 // PostCreate.js (new)
+
+02-22. Handling CORS Errors
+npm i cors
+npm start
+
+// index.js
+...
+const cors = require('cors');
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
