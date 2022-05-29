@@ -124,3 +124,51 @@ cd event-bus
 npm init -y
 npm i express axios nodemon
 // index.js (new)
+
+02-33. Emitting Events
+// Posts => index.js
+const axios = require('axios');
+...
+app.post('/posts', async (req, res) => {
+  const id = randomBytes(4).toString('hex');
+  ...
+  await axios.post('http://localhost:4005/events', {
+    type: 'PostCreated',
+    data: {
+      id,
+      title
+    } 
+  });
+
+  res.status(201).send(posts[id]);
+});
+
+02-34. Emitting Comment Creation Events
+// Comments => index.js
+const axios = require('axios');
+...
+  await axios.post('http://localhost:4005/events', {
+    type: 'CommentCreated',
+    data: {
+      id: commentId,
+      content,
+      postId: req.params.id
+    }
+  });
+...
+
+02-35. Receiving Events
+// Posts && Comments => index.js
+app.post("/events", (req, res) => {
+  console.log("Post Event Received", req.body.type);
+  res.send({});
+});
+
+02-36. Creating the Data Query Service
+md query
+cd query
+npm init -y
+npm i express cors
+npm start
+
+// index.js (new)
