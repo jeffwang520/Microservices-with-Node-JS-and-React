@@ -116,3 +116,11 @@ const App = () => {
 posts
 comments 
 ...
+
+02-32. A Basic Event Bus Implementation
+cd backends 
+md event-bus
+cd event-bus
+npm init -y
+npm i express axios nodemon
+// index.js (new)
