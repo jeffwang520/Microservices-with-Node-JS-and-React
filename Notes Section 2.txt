@@ -204,3 +204,33 @@ app.post('/events', (req, res) => {
 
   res.send({});
 });
+
+02-38. Using the Query Service
+npx create-react-app client-async
+cd client-async
+xcopy ..\client/*.* /s
+npm i --force
+npm start 
+
+// PostList.js
+  const fetchPosts = async () => {
+    const res = await axios.get("http://localhost:4002/posts");
+    setPosts(res.data);
+  };
+
+  <div className="card-body">
+    <h3>{post.title}</h3>
+    <CommentList comments={post.comments} />
+    <CommentCreate postId={post.id} />
+  </div>
+
+// CommentList.js
+const CommentList = ({ comments }) => {
+  const renderedComments = comments.map((comment) => {
+    return <li key={comment.id}>{comment.content}</li>;
+  });
+
+  return <ul>{renderedComments}</ul>;
+};
+
+export default CommentList;
