@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const test = React.Component;
 const PostCreate = () => {
   const [title, setTitle] = useState("");
   
