@@ -13,7 +13,6 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/events', (req, res) => {
-  // console.log("Event Received", req.body.type);
   const { type, data } = req.body;
 
   if (type === 'PostCreated') {
@@ -33,6 +32,7 @@ app.post('/events', (req, res) => {
     }  
   }
 
+  console.log("Event Received by Query Service:", req.body.type);
   res.send({});
 });
 

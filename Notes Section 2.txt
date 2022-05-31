@@ -240,3 +240,11 @@ const CommentList = ({ comments }) => {
 };
 
 export default CommentList;
+
+02-43. Creating the Moderation Service
+md moderation
+cd moderation
+npm init -y
+// package.json => "start": "nodemon index.js"
+npm i express axios
+npm start
