@@ -21,10 +21,10 @@ app.post('/events', (req, res) => {
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId } = data;
+    const { id, content, status, postId } = data;
     const post = posts[postId];
     if (post !== undefined) {
-      post.comments.push({ id, content, type });
+      post.comments.push({ id, content, status, type });
       // console.log(posts);
     } else {
       console.log('Invalid Post, need further development here...')

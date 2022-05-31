@@ -248,3 +248,34 @@ npm init -y
 // package.json => "start": "nodemon index.js"
 npm i express axios
 npm start
+
+02-44. Adding Comment Moderation
+// Event-bus - index.js
+// Moderate service
+axios.post("http://localhost:4003/events", event).catch((err) => {
+  console.log(err.message);
+});
+
+// Comments - index.js
+comments.push({ id: commentId, content, status: 'pending' }); //***
+commentsByPostId[req.params.id] = comments;
+
+await axios.post('http://localhost:4005/events', {
+  type: 'CommentCreated',
+  data: {
+    id: commentId,
+    content,
+    postId: req.params.id,
+    status: 'pending' // ***
+  }
+});
+
+// Query - index.js
+if (type === 'CommentCreated') {
+  const { id, content, status, postId } = data; //***
+  const post = posts[postId];
+  if (post !== undefined) {
+    post.comments.push({ id, content, status, type }); //***
+    // console.log(posts);
+  } else {
+...
