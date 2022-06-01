@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "67e4d230-85f1-41a6-b2f5-d7fd8d2f676d",
+		"name": "Microservices with Node JS and React",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2908296"
+	},
+	"item": [
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "POST Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"UID\", pm.response.json().id);\r",
+									"pm.environment.set(\"TITLE\", pm.response.json().title);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Title Postman #1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "POST Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Comment #1.2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/posts/{{UID}}/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"posts",
+								"{{UID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comments by Post ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/posts/{{UID}}/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"posts",
+								"{{UID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "GET Query Posts with Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4002/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "4002",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
