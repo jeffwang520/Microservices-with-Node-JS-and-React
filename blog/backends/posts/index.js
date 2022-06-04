@@ -23,19 +23,18 @@ app.post('/posts', async (req, res) => {
     title
   };
 
-  // console.log('PostId: ', posts[id]);
   await axios.post('http://localhost:4005/events', {
     type: 'PostCreated',
     data: {
       id,
       title
-    } 
+    }
   });
 
   res.status(201).send(posts[id]);
 });
 
-app.post("/events", (req, res) => {
+app.post('/events', (req, res) => {
   console.log("Event Received by Posts Service:", req.body.type);
   res.send({});
 });

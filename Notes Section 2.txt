@@ -339,3 +339,58 @@ if (type === 'CommentUpdated') {
   comment.type = type;
   comment.content = content;
 }
+
+02-52. Implementing Event Sync
+// Event Bus
+npm i cors
+// Query 
+npm i axios
+
+// Event-bus => index.js
+const events = [];
+
+app.get("/events", (req, res) => {
+  res.send(events);
+});
+
+app.post("/events", (req, res) => {
+  const event = req.body;
+  events.push(event); //***
+...
+
+// Query => index.js
+// Handle Event as a common function ...
+const handleEvent = (type, data) => {
+  if (type === 'PostCreated') {
+    const { id, title } = data;
+    posts[id] = { id, title, comments: [], type };
+  }
+
+  if (type === 'CommentCreated') {
+    const { id, content, status, postId } = data;
+    const post = posts[postId];
+    post.comments.push({ id, content, status, type });
+  }
+};
+
+app.post('/events', (req, res) => {
+  const { type, data } = req.body;
+  handleEvent(type, data);
+
+  console.log("Event Received by Query Service:", req.body.type);
+  res.send({});
+});
+
+app.listen(4002, async () => {
+  console.log('Listening on 4002');
+  try {
+    const res = await axios.get('http://localhost:4005/events');
+
+    for (let event of res.data) {
+      console.log('Processing event:', event.type);
+      handleEvent(event.type, event.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+});

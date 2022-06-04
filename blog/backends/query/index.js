@@ -1,20 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require("axios");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
 const posts = {};
 
 app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
-app.post('/events', (req, res) => {
-  const { type, data } = req.body;
-
+// Handle Event as a common function ...
+const handleEvent = (type, data) => {
   if (type === 'PostCreated') {
     const { id, title } = data;
     posts[id] = { id, title, comments: [], type };
@@ -23,13 +22,7 @@ app.post('/events', (req, res) => {
   if (type === 'CommentCreated') {
     const { id, content, status, postId } = data;
     const post = posts[postId];
-    if (post !== undefined) {
-      post.comments.push({ id, content, status, type });
-      // console.log(posts);
-    } else {
-      console.log('Invalid Post, need further development here...')
-      // get Post here ...
-    }  
+    post.comments.push({ id, content, status, type });
   }
 
   if (type === 'CommentUpdated') {
@@ -43,11 +36,26 @@ app.post('/events', (req, res) => {
     comment.type = type;
     comment.content = content;
   }
+};
+
+app.post('/events', (req, res) => {
+  const { type, data } = req.body;
+  handleEvent(type, data);
 
   console.log("Event Received by Query Service:", req.body.type);
   res.send({});
 });
 
-app.listen(4002, () => {
+app.listen(4002, async () => {
   console.log('Listening on 4002');
+  try {
+    const res = await axios.get('http://localhost:4005/events');
+
+    for (let event of res.data) {
+      console.log('Processing event:', event.type);
+      handleEvent(event.type, event.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 });
