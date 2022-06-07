@@ -1,0 +1,24 @@
+03-60. Review Some Basic Commands
+docker build -t christseng89/posts .
+docker run [image id or image tag]
+docker run -it [image id or image tag] [cmd]
+docker ps
+docker exec -it [container id] [cmd]
+
+03-61. Important Note Regarding Node v17
+FROM node:16-alpine
+
+Currently, there is a critical bug in many libraries such as Webpack and Create React App 
+caused by the release of Node v17.
+
+https://github.com/facebook/create-react-app/issues/11562 (still unresolved)
+https://github.com/webpack/webpack/issues/14532 (currently resolved)
+
+If you need to support both 17 and older NodeJS versions you can use if-node-version 
+to execute different commands for different NodeJS versions:
+
+{
+    "scripts": {
+        "build": "if-node-version '>= 17' && react-scripts --openssl-legacy-provider build || react-scripts build",
+    }
+}
