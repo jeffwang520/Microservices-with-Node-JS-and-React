@@ -22,3 +22,35 @@ to execute different commands for different NodeJS versions:
         "build": "if-node-version '>= 17' && react-scripts --openssl-legacy-provider build || react-scripts build",
     }
 }
+
+03-62. Dockering Other Services
+cd blog
+cd client-async
+docker build -t christseng89\client-async .
+docker run christseng89\client-async
+
+cd ..
+cd backends
+cd posts
+docker build -t christseng89\posts .
+docker run christseng89\posts
+
+cd ..
+cd comments
+docker build -t christseng89\comments .
+docker run christseng89\comments
+
+cd ..
+cd query
+docker build -t christseng89\query .
+docker run christseng89\query
+
+cd ..
+cd event-bus
+docker build -t christseng89\event-bus .
+docker run christseng89\event-bus
+
+cd ..
+cd moderation
+docker build -t christseng89\moderation .
+docker run christseng89\moderation
