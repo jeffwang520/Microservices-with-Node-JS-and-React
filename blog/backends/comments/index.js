@@ -44,6 +44,7 @@ app.post("/events", async (req, res) => {
   const { type, data } = req.body;
 
   if (type === "CommentModerated") {
+    log(req.body)
     const { postId, id, status, content } = data;
     const comments = commentsByPostId[postId];
     const comment = comments.find((comment) => {
@@ -70,3 +71,19 @@ app.post("/events", async (req, res) => {
 app.listen(4001, () => {
   console.log('Listening on 4001');
 });
+function getDateTime() {
+  let date = new Date();
+  let Str = date.getFullYear() + '-' +
+    (date.getMonth() + 1) + '-' +
+    date.getDate() + ' ' +
+    date.getHours() + ':' +
+    date.getMinutes() + ':' +
+    date.getSeconds()+"."+date.getMilliseconds();
+  return Str+"---";
+}
+ 
+function log(message){
+  console.log(getDateTime()+"In Comment Service--------------------");
+  console.log(message);
+  console.log(getDateTime()+"In Comment Service====================");
+}

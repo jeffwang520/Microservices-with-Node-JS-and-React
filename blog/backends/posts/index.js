@@ -23,6 +23,8 @@ app.post('/posts', async (req, res) => {
     title
   };
 
+  log("GOT A REQUEST:postId="+id+",PostTitle="+title);
+
   await axios.post('http://localhost:4005/events', {
     type: 'PostCreated',
     data: {
@@ -42,3 +44,21 @@ app.post('/events', (req, res) => {
 app.listen(4000, () => {
   console.log('Listening on 4000');
 });
+
+ 
+function getDateTime() {
+  let date = new Date();
+  let Str = date.getFullYear() + '-' +
+    (date.getMonth() + 1) + '-' +
+    date.getDate() + ' ' +
+    date.getHours() + ':' +
+    date.getMinutes() + ':' +
+    date.getSeconds()+"."+date.getMilliseconds();
+  return Str+"---";
+}
+ 
+function log(message){
+  console.log(getDateTime()+"In Posts Service--------------------");
+  console.log(message);
+  console.log(getDateTime()+"In Posts Service====================");
+}

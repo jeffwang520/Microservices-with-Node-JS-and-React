@@ -3,11 +3,14 @@ import { useState } from "react";
 
 const PostCreate = () => {
   const [title, setTitle] = useState("");
-  
+
   const onSubmit = async (event) => {
     event.preventDefault();
+    console.log("4000/posts==title=" + title)
     await axios.post("http://localhost:4000/posts", {
       title,
+    }).catch((err) => {
+      console.log(err.message);
     });
 
     setTitle("");
